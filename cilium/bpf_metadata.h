@@ -164,7 +164,7 @@ private:
                                               const IPAddressPair& sourceAddresses);
 };
 
-typedef std::shared_ptr<Config> ConfigSharedPtr;
+using ConfigSharedPtr = std::shared_ptr<Config>;
 
 /**
  * Implementation of a bpf metadata listener filter.
