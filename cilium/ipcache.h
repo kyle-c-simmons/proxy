@@ -15,12 +15,12 @@ namespace Cilium {
 
 class IPCache : public Singleton::Instance, public Bpf {
 public:
-  static std::shared_ptr<IPCache> NewIPCache(Server::Configuration::ServerFactoryContext& context,
+  static std::shared_ptr<IPCache> newIpCache(Server::Configuration::ServerFactoryContext& context,
                                              const std::string& bpf_root);
-  static std::shared_ptr<IPCache> GetIPCache(Server::Configuration::ServerFactoryContext& context);
+  static std::shared_ptr<IPCache> getIpCache(Server::Configuration::ServerFactoryContext& context);
 
   IPCache(const std::string& bpf_root);
-  bool Open();
+  bool open();
 
   const std::string& bpfRoot() { return bpf_root_; }
 
