@@ -122,19 +122,19 @@ Network::FilterStatus Instance::onNewConnection() {
   // Pass metadata from tls_inspector to the filterstate, if any & not already
   // set via upstream cluster config.
   if (!sni.empty()) {
-    auto filterState = conn.streamInfo().filterState();
+    auto filter_state = conn.streamInfo().filterState();
     auto have_sni =
-        filterState->hasData<Network::UpstreamServerName>(Network::UpstreamServerName::key());
-    auto have_san = filterState->hasData<Network::UpstreamSubjectAltNames>(
+        filter_state->hasData<Network::UpstreamServerName>(Network::UpstreamServerName::key());
+    auto have_san = filter_state->hasData<Network::UpstreamSubjectAltNames>(
         Network::UpstreamSubjectAltNames::key());
     if (!have_sni && !have_san) {
-      filterState->setData(Network::UpstreamServerName::key(),
-                           std::make_unique<Network::UpstreamServerName>(sni),
-                           StreamInfo::FilterState::StateType::Mutable);
-      filterState->setData(Network::UpstreamSubjectAltNames::key(),
-                           std::make_unique<Network::UpstreamSubjectAltNames>(
-                               std::vector<std::string>{std::string(sni)}),
-                           StreamInfo::FilterState::StateType::Mutable);
+      filter_state->setData(Network::UpstreamServerName::key(),
+                            std::make_unique<Network::UpstreamServerName>(sni),
+                            StreamInfo::FilterState::StateType::Mutable);
+      filter_state->setData(Network::UpstreamSubjectAltNames::key(),
+                            std::make_unique<Network::UpstreamSubjectAltNames>(
+                                std::vector<std::string>{std::string(sni)}),
+                            StreamInfo::FilterState::StateType::Mutable);
     }
   }
 
